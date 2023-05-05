@@ -1,0 +1,15 @@
+INSERT INTO `ocupacion` VALUES (1, 'Profesionista');
+INSERT INTO `ocupacion` VALUES (2, 'Tecnicos');
+INSERT INTO `ocupacion` VALUES (3, 'Trabajadores de la educacion');
+INSERT INTO `ocupacion` VALUES (4, 'Trabajadores del arte');
+INSERT INTO `ocupacion` VALUES (5, 'Funcionarios publicos');
+INSERT INTO `ocupacion` VALUES (6, 'Funcionarios privados');
+INSERT INTO `ocupacion` VALUES (7, 'Trabajador agricola');
+INSERT INTO `ocupacion` VALUES (8, 'Artesano');
+INSERT INTO `ocupacion` VALUES (9, 'Operador');
+INSERT INTO `ocupacion` VALUES (10, 'Conductor');
+INSERT INTO `ocupacion` VALUES (11, 'Supervusor');
+INSERT INTO `ocupacion` VALUES (12, 'Comerciante');
+INSERT INTO `ocupacion` VALUES (13, 'Vendedor ambulante');
+INSERT INTO `ocupacion` VALUES (14, 'Proteccion');
+INSERT INTO `ocupacion` VALUES (15, 'No especificado');
