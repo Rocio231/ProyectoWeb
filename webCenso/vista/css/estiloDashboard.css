@@ -1,0 +1,39 @@
+body {
+    background-color: #f0f8ff; /* un tono de azul claro */
+}
+
+#container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #add8e6; /* un tono de azul claro */
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000000;
+}
+
+h1 {
+    color: #000080; /* un tono de azul oscuro */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+a {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #87cefa; /* un tono de azul claro */
+    color: #000080; /* un tono de azul oscuro */
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #00bfff; /* un tono de azul mas oscuro */
+    color: #ffffff;
+}
+
+.botones-menu {
+    margin-left: 50px;
+  }
+  

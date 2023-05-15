@@ -1,0 +1,78 @@
+/* Aplicar estilos al body y al container */
+body {
+    background-color: #F0F7FF;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+#container {
+    background-color: #FFFFFF;
+    border: 1px solid #0080FF;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+/* Aplicar estilos a los elementos del formulario */
+h1 {
+    font-size: 2em;
+    text-align: center;
+    color: #0080FF;
+    margin-bottom: 20px; /* añadido para más espacio entre los h1 */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #0080FF;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #0080FF;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button[type="submit"],
+button[type="reset"] {
+    background-color: #0080FF;
+    color: #FFFFFF;
+    padding: 12px 20px; /* aumentado el padding para más espacio alrededor del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    text-align: center; /* centrado el contenido del botón */
+}
+
+button[type="submit"]:hover,
+button[type="reset"]:hover {
+    background-color: #0050CC;
+}
+
+#row {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.container {
+    margin-top: 50px;
+    width: 400px;
+    max-width: 100%;
+}
+
+.container h1 {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.text-center {
+    margin-top: 20px;
+}
