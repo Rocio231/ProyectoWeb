@@ -202,11 +202,11 @@ public function obtenerIdLocalidadPorNombre($nombre_localidad)
     ############################
     #CREAR HABITANTE#
     ############################
-    public function crearHabitante($idhabitante,$nombre, $edad, $sexo, $edo_civil, $nivel_educativo, $ingresos, $nacionalidad)
+    public function crearHabitante($idhabitante,$nombre, $edad, $sexo, $edo_civil, $nivel_educativo, $ingresos, $nacionalidad, $vivienda_id)
     {
         try {
             $pdo = SingeltonDB::getInstance()->getDB();
-            $stmt = $pdo->prepare("INSERT INTO habitante (idhabitante,nombre, edad, sexo, edo_civil, nivel_educativo, ingresos, nacionalidad, vivienda_idvivienda) VALUES (:idhabitante, :nombre, :edad, :sexo, :edo_civil, :nivel_educativo, :ingresos, :nacionalidad, (SELECT MAX(idvivienda) FROM vivienda))");
+            $stmt = $pdo->prepare("INSERT INTO habitante (idhabitante,nombre, edad, sexo, edo_civil, nivel_educativo, ingresos, nacionalidad, vivienda_idvivienda) VALUES (:idhabitante, :nombre, :edad, :sexo, :edo_civil, :nivel_educativo, :ingresos, :nacionalidad, :vivienda_id)");
             $stmt->bindParam(':idhabitante',$idhabitante);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':edad', $edad);
@@ -215,7 +215,7 @@ public function obtenerIdLocalidadPorNombre($nombre_localidad)
             $stmt->bindParam(':nivel_educativo', $nivel_educativo);
             $stmt->bindParam(':ingresos', $ingresos);
             $stmt->bindParam(':nacionalidad', $nacionalidad);
-            
+            $stmt->bindParam(':vivienda_id', $vivienda_id);
             $stmt->execute();
         } catch (PDOException $e) {
             echo "Error en la consulta SQL: " . $e->getMessage();
@@ -259,11 +259,12 @@ public function obtenerIdLocalidadPorNombre($nombre_localidad)
     ############################
     #ACTUALIZAR HABITANTE POR ID#
     ############################
-    function actualizarHabitante($nombre, $edad, $sexo, $edo_civil, $nivel_educativo, $ingresos, $nacionalidad)
+    function actualizarHabitante($id, $nombre, $edad, $sexo, $edo_civil, $nivel_educativo, $ingresos, $nacionalidad, $vivienda_id)
     {
         try {
             $pdo = SingeltonDB::getInstance()->getDB();
-            $stmt = $pdo->prepare("UPDATE habitante SET nombre = :nombre, edad = :edad, sexo = :sexo, edo_civil = :edo_civil, nivel_educativo = :nivel_educativo, ingresos = :ingresos, nacionalidad = :nacionalidad, vivienda_idvivienda = (SELECT MAX(idvivienda) FROM vivienda) WHERE idhabitante = (SELECT MAX(idhabitante) FROM habitante)");
+            $stmt = $pdo->prepare("UPDATE habitante SET nombre = :nombre, edad = :edad, sexo = :sexo, edo_civil = :edo_civil, nivel_educativo = :nivel_educativo, ingresos = :ingresos, nacionalidad = :nacionalidad, vivienda_idvivienda = :vivienda_id WHERE idhabitante = :id");
+            $stmt->bindParam(':id', $id);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':edad', $edad);
             $stmt->bindParam(':sexo', $sexo);
@@ -271,7 +272,7 @@ public function obtenerIdLocalidadPorNombre($nombre_localidad)
             $stmt->bindParam(':nivel_educativo', $nivel_educativo);
             $stmt->bindParam(':ingresos', $ingresos);
             $stmt->bindParam(':nacionalidad', $nacionalidad);
-
+            $stmt->bindParam(':vivienda_id', $vivienda_id);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
@@ -303,12 +304,12 @@ public function obtenerIdLocalidadPorNombre($nombre_localidad)
     ############################
     #CREAR VIVIENDA_OCUPACION#
     ############################
-    function crearViviendaOcupacion( $ocupacion_id)
+    function crearViviendaOcupacion($vivienda_id, $ocupacion_id)
     {
         try {
             $pdo = SingeltonDB::getInstance()->getDB();
-            $stmt = $pdo->prepare("INSERT INTO vivienda_ocupacion (vivienda_idvivienda, ocupacion_idocupacion) VALUES ((SELECT MAX(idvivienda) FROM vivienda), :ocupacion_id)");
-            
+            $stmt = $pdo->prepare("INSERT INTO idvivienda_ocupacion (vivienda_idvivienda, ocupacion_idocupacion) VALUES (:vivienda_id, :ocupacion_id)");
+            $stmt->bindParam(':vivienda_id', $vivienda_id);
             $stmt->bindParam(':ocupacion_id', $ocupacion_id);
             $stmt->execute();
             return true;
@@ -419,32 +420,31 @@ public function obtenerIdLocalidadPorNombre($nombre_localidad)
     ############################
     #ACTUALIZAR LA ULTIMA VIVIENDA#
     ############################
-public function actualizarUltimaViviendaAgregada($tipo_vivienda, $material, $saneamiento, $agua, $luz, $drenaje, $tendencia, $direccion, $num_habitaciones, $num_banios, $idlocalidades, $idmunicipio)
-{
-    try {
-        $pdo = SingeltonDB::getInstance()->getDB();
-        $stmt = $pdo->prepare("UPDATE vivienda SET tipo_vivienda = :tipo_vivienda, material = :material, saneamiento = :saneamiento, agua = :agua, luz = :luz, drenaje = :drenaje, tendencia = :tendencia, direccion = :direccion, num_habitaciones = :num_habitaciones, num_banios = :num_banios, localidades_idlocalidades = :idlocalidades, localidades_municipio_idmunicipio = :idmunicipio WHERE idvivienda = (SELECT MAX(idvivienda) FROM vivienda)");
-        $stmt->bindParam(':tipo_vivienda', $tipo_vivienda);
-        $stmt->bindParam(':material', $material);
-        $stmt->bindParam(':saneamiento', $saneamiento);
-        $stmt->bindParam(':agua', $agua);
-        $stmt->bindParam(':luz', $luz);
-        $stmt->bindParam(':drenaje', $drenaje);
-        $stmt->bindParam(':tendencia', $tendencia);
-        $stmt->bindParam(':direccion', $direccion);
-        $stmt->bindParam(':num_habitaciones', $num_habitaciones);
-        $stmt->bindParam(':num_banios', $num_banios);
-        $stmt->bindParam(':idlocalidades', $idlocalidades);
-        $stmt->bindParam(':idmunicipio', $idmunicipio);
-
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e) {
-        echo "Error en la consulta SQL: " . $e->getMessage();
-        return false;
+    public function actualizarUltimaViviendaAgregada($tipo_vivienda, $material, $saneamiento, $agua, $luz, $drenaje, $tendencia, $direccion, $num_habitaciones, $num_banios, $idlocalidades, $idmunicipio, $idvivienda)
+    {
+        try {
+            $pdo = SingeltonDB::getInstance()->getDB();
+            $stmt = $pdo->prepare("UPDATE vivienda SET tipo_vivienda = :tipo_vivienda, material = :material, saneamiento = :saneamiento, agua = :agua, luz = :luz, drenaje = :drenaje, tendencia = :tendencia, direccion = :direccion, num_habitaciones = :num_habitaciones, num_banios = :num_banios, localidades_idlocalidades = :idlocalidades, localidades_municipio_idmunicipio = :idmunicipio WHERE idvivienda = :idvivienda");
+            $stmt->bindParam(':tipo_vivienda', $tipo_vivienda);
+            $stmt->bindParam(':material', $material);
+            $stmt->bindParam(':saneamiento', $saneamiento);
+            $stmt->bindParam(':agua', $agua);
+            $stmt->bindParam(':luz', $luz);
+            $stmt->bindParam(':drenaje', $drenaje);
+            $stmt->bindParam(':tendencia', $tendencia);
+            $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':num_habitaciones', $num_habitaciones);
+            $stmt->bindParam(':num_banios', $num_banios);
+            $stmt->bindParam(':idlocalidades', $idlocalidades);
+            $stmt->bindParam(':idmunicipio', $idmunicipio);
+            $stmt->bindParam(':idvivienda', $idvivienda);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error en la consulta SQL: " . $e->getMessage();
+            return false;
+        }
     }
-}
-
     ############################
     #BORRAR LA ULTIMA VIVIENDA#
     ############################
