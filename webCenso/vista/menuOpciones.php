@@ -14,12 +14,15 @@
         <div class="btn-group-vertical mt-4" role="group">
             <a href="../vista/registrarCenso.php" class="btn btn-primary mb-2">Registrar Censo</a>
             <a href="../vista/dashboard/MenuDash.php" class="btn btn-primary mb-2">Dashboard</a>
-            <a href="../index.php" class="btn btn-primary mb-2">Log Out</a>
+            <a href="../index.php" class="btn btn-primary mb-2" onclick="logout()">Log Out</a>
         </div>
     </nav>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function logout() {
+            alert("Se ha cerrado la sesión");
+        }
+    </script>
 </body>
 </html>
-
-

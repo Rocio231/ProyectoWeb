@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["agregarHabitante"])) {
     $nivel_educativo = $_POST["nivEducativo"];
     $ingresos = $_POST["ingresos"];
     $nacionalidad = $_POST["nacionalidad"];
-   
+
     $crud_habitante->crearHabitante($idhabitante, $nombre, $edad, $sexo, $edoCivil, $nivel_educativo, $ingresos, $nacionalidad);
 }
 
@@ -72,14 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modificarHabitante"]))
     $nivel_educativo = $_POST["nivEducativo"];
     $ingresos = $_POST["ingresos"];
     $nacionalidad = $_POST["nacionalidad"];
-   
+
     $crud_habitante->actualizarHabitante($nombre, $edad, $sexo, $edoCivil, $nivel_educativo, $ingresos, $nacionalidad);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["agregarOcupacionVivienda"])) {
     $idocupacion = $_POST["idocupacion"];
 
-   
     $crud_ochab->crearViviendaOcupacion($idocupacion);
 }
 ?>
